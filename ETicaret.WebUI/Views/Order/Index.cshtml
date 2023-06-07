@@ -1,0 +1,91 @@
+﻿@model List<Order>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Siparişlerim Sayfası</h1>
+        <hr />
+        @foreach (var orders in Model)
+        {
+            <div class="accordion" id="accordionExample_@orders.Id">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="#collapseOne_@orders.Id" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @orders.OrderNumber Numaralı Sipariş
+                            Sipariş Tarihi : @orders.OrderDate
+                            Toplam Ödenen : @orders.
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table table-bordered mt-3">
+                                <thead>
+                                    <tr class="fw-bold text-center">
+                                        <td>Sipariş Numarası</td>
+                                        <td>Sipariş Tarihi</td>
+                                        <td>Adı</td>
+                                        <td>Soyadı</td>
+                                        <td>Adresi</td>
+                                        <td>Telefon</td>
+                                        <td>Email</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        <tr class="text-center">
+                                            <td>@orders.OrderNumber</td>
+                                            <td>@orders.OrderDate</td>
+                                            <td>@orders.FirstName</td>
+                                            <td>@orders.LastName</td>
+                                            <td>@orders.Address</td>
+                                            <td>@orders.Telephone</td>
+                                            <td>@orders.Email</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-warning">
+                                            <h3>Listelenecek sipariş bulunamadı.</h3>
+                                        </div>
+                                    }
+
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered mt-3">
+                                <thead>
+                                    <tr class="fw-bold text-center">
+                                        <td>Ürün Numarası</td>
+                                        <td>Ürün</td>
+                                        <td>Fiyatı</td>
+                                        <td>Adeti</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        @foreach (var details in orders.OrderItems)
+                                        {
+                                            <tr class="text-center">
+                                                <td>@details.ProductId</td>
+                                                <td>@details.Product.Name</td>
+                                                <td>@details.Price</td>
+                                                <td>@details.Quantity</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-warning">
+                                            <h3>Listelenecek sipariş ayrıntısı bulunamadı.</h3>
+                                        </div>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
